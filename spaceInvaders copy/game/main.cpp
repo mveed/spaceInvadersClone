@@ -8,6 +8,15 @@
 #include "EnemyBullet.hpp"
 #include "Explosion.hpp"
 #include <vector>
+#include <string>
+
+std::string gameState = "title";
+// different state ideas -
+// title
+// inGame
+// createNewLevel
+// loseLife
+// gameOver
 
 std::vector<Enemy> populateEnemy(int number){
     float xSpace = 150;
@@ -45,17 +54,19 @@ int main()
     const int windowWidth = 1200;
     const int windowHeight = 1200;
     const int moveSpeed = 10;
+    
     // start with shot counter ready to allow player to shoot
     // when bullet fires, set to positive value
     // constantly --, then when value is <0 allow another
     // bullet to be fire
     int shotCounter = 0;
   // Create the main program window.
-  sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "My window");
-    window.setFramerateLimit(60);
+
 
 //  float angle = 0.0;
     Player player;
+
+    
     std::vector<Enemy> enemies = populateEnemy(20);
     
     // create a bullet off screen to allow code checking for bullets to execute,
@@ -88,25 +99,117 @@ int main()
     Explosion explosion(-9999, -9999);
     explosions.push_back(explosion);
     
+    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "My window");
+      window.setFramerateLimit(60);
+    
     
 
   // Run the program as long as the main window is open.
   while (window.isOpen())
     {
         
+        while (gameState == "setupNewGame"){
+        // ***** create new level from title screen
+            
+            // reset player position
+            player.xPos = 600;
+            player.yPos = 1100;
+            
+            // delete all enemies
+            for (int i = 0; i < enemies.size(); i++){
+                enemies.pop_back();
+            }
+            for (int i = 0; i < enemyBullets.size(); i++){
+                enemyBullets.pop_back();
+            }
+            for (int i = 0; i < bullets.size(); i++){
+                bullets.pop_back();
+            }
+            for (int i = 0; i < explosions.size(); i++){
+                explosions.pop_back();
+            }
+            
+            // recreate stuff
+            // create off screen enemyBullet, same as above for bullet
+            EnemyBullet enemyBullet(-9999, -9999);
+            enemyBullets.push_back(enemyBullet);
+            
+            // create off screen explosion
+            Explosion explosion(-9999, -9999);
+            explosions.push_back(explosion);
+            
+            enemies = populateEnemy(1);
+            
+            // create a bullet off screen to allow code checking for bullets to execute,
+            // return false if needed
+            // shouldcreate isAlive bool for bullet
+
+            // create off screen bullet
+            Bullet bullet(player.getXPos() - 9999);
+            bullets.push_back(bullet);
+            
+            gameState = "inGame";
+        }
+        
+        
+        while (gameState == "title"){
+            
+            // must be included in each state
+            // ******
+            sf::Event event;
+            while (window.pollEvent(event))
+              {
+                // "close requested" event: we close the window
+                if (event.type == sf::Event::Closed) {
+                    gameState = "exit";
+                  window.close();
+                }
+              }
+
+            // clear the window with black color
+            window.clear(sf::Color::Black);
+            // ******* end of must be included in each state
+    
+            sf::RectangleShape titleSquare(sf::Vector2f(1000, 150));
+            titleSquare.setFillColor(sf::Color(200, 200, 200));
+            titleSquare.setPosition(100, 150);
+            
+            sf::RectangleShape titleSquare2(sf::Vector2f(800, 150));
+            titleSquare2.setFillColor(sf::Color(200, 200, 200));
+            titleSquare2.setPosition(200, 950);
+            
+            window.draw(titleSquare);
+            window.draw(titleSquare2);
+            
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+                gameState = "setupNewGame";
+            }
+            
+            window.display();
+        }  // end while (gameState == "title");
+        
+    
+    while (gameState == "inGame"){
+      // ***** required for each state
+
       // Check all the window's events that were triggered since the last iteration of the loop
       sf::Event event;
       while (window.pollEvent(event))
         {
           // "close requested" event: we close the window
           if (event.type == sf::Event::Closed) {
+              gameState = "exit";
             window.close();
           }
         }
 
       // clear the window with black color
       window.clear(sf::Color::Black);
+
         
+
+      // ***** end of required for each state
+
         // check keyboard inputs
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ){
             player.updatePos(player.getXPos() + moveSpeed);
@@ -225,10 +328,18 @@ int main()
         }
         // **** end explosion code
         
+    // allow player to quit
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
+            gameState = "title";
+        }
+        
         
       // end the current frame
       window.display();
+    } // end while(gameState = "inGame";
     }
 
-  return 0;
+    while(gameState == "exit"){
+        return 0;
+    }
 }
