@@ -43,17 +43,10 @@ int main()
   sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "My window");
     window.setFramerateLimit(60);
 
-//  // Create a shape to draw
-//  sf::CircleShape myCircle(500.f);
-//
-//  myCircle.setFillColor(sf::Color(55, 50, 75)); // set the shape color to green
-
 //  float angle = 0.0;
     Player player;
     std::vector<Enemy> enemies = populateEnemy(20);
     
-//    sf::RectangleShape playerSprite(sf::Vector2f(65, 50));
-//    playerSprite.setFillColor(sf::Color(150, 150, 150));
     // create a bullet off screen to allow code checking for bullets to execute,
     // return false if needed
     // shouldcreate isAlive bool for bullet
