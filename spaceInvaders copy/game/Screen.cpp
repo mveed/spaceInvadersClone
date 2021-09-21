@@ -30,3 +30,19 @@ void Screen::populateEnemies( int numEnemy ) {
         yStart += ySpace;
     }
 }
+
+void Screen::deleteGameObjects(std::vector<Enemy> & a, std::vector<EnemyBullet> & b, std::vector<Bullet> & c, std::vector<Explosion> & d){
+     // delete all enemies
+            for (int i = 0; i < a.size(); i++){
+                a.pop_back();
+            }
+            for (int i = 0; i < b.size(); i++){
+                b.pop_back();
+            }
+            for (int i = 0; i < c.size(); i++){
+                c.pop_back();
+            }
+            for (int i = 0; i < d.size(); i++){
+                d.pop_back();
+            }
+}

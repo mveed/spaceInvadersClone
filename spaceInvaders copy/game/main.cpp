@@ -119,19 +119,7 @@ int main()
             player.xPos = 600;
             player.yPos = 1100;
             
-            // delete all enemies
-            for (int i = 0; i < screen.enemies.size(); i++){
-                screen.enemies.pop_back();
-            }
-            for (int i = 0; i < enemyBullets.size(); i++){
-                enemyBullets.pop_back();
-            }
-            for (int i = 0; i < bullets.size(); i++){
-                bullets.pop_back();
-            }
-            for (int i = 0; i < explosions.size(); i++){
-                explosions.pop_back();
-            }
+            screen.deleteGameObjects(screen.enemies, enemyBullets, bullets, explosions);
             
             // recreate stuff
             // create off screen enemyBullet, same as above for bullet

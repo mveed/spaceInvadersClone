@@ -27,6 +27,8 @@ public:
     Screen();  // populate player, enemies
     void populateEnemies( int numEnemies );
     
+    void deleteGameObjects(std::vector<Enemy> & a, std::vector<EnemyBullet> & b, std::vector<Bullet> & c, std::vector<Explosion> & d);
+    
 };
 
 #endif /* Screen_hpp */
