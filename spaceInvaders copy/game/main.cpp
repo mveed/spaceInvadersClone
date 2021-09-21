@@ -56,6 +56,11 @@ int main()
     Bullet bullet(player.getXPos() - 9999);
     bullets.push_back(bullet);
     
+    // create off screen enemyBullet, same as above for bullet
+    std::vector<EnemyBullet> enemyBullets;
+    EnemyBullet enemyBullet(-9999, -9999);
+    enemyBullets.push_back(enemyBullet);
+    
     
 
   // Run the program as long as the main window is open.
@@ -91,7 +96,7 @@ int main()
         // fire bullets
         // if space is pressed, and its been long enough since last bullet has been shot
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && (shotCounter < 0) ){
-            Bullet bullet(player.getXPos());
+            Bullet bullet(player.getXPos() + 30);
             bullets.push_back(bullet);
             // higher values slow down rate of fire
             shotCounter = 30;
@@ -134,6 +139,34 @@ int main()
         
         // **** ill put enemy bullet code here
         
+        // use random number to determine when to fire bullet
+        // if returns true, create a new bullet at enemy position
+        // create it inside enemyBullets vector
+        for (int i = 0; i < enemies.size(); i++)
+        if (randomizeEnemyBullets() && enemies[i].isAlive){
+            EnemyBullet enemyBullet(enemies[i].getXPos() + 20, enemies[i].getYPos()+ 25);
+            enemyBullets.push_back(enemyBullet);
+        }
+
+        // iterate through each bullet, if its alive, check for collision with player update the position
+        // and draw as well
+        for (int i = 0; i < enemyBullets.size(); i++){
+            if (enemyBullets[i].isAlive){
+                // get the bounding box for collision from enemy bullet and player
+                sf::FloatRect enemyBulletBox = enemyBullets[i].enemyBulletImage.getGlobalBounds();
+                sf::FloatRect playerBox = player.playerImage.getGlobalBounds();
+                
+                // should add && to if for player.isAlive bool
+                if (playerBox.intersects(enemyBulletBox)){
+                    enemyBullets[i].isAlive = false;
+                    std::cout << "Player hit. \n";
+                }
+                    
+                // position and draw update
+                enemyBullets[i].enemyBulletImage.setPosition(enemyBullets[i].getXPos(), enemyBullets[i].updateYPos());
+                window.draw(enemyBullets[i].enemyBulletImage);
+            }
+        }
         // **** end enemy bullet code
 
       // end the current frame

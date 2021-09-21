@@ -11,6 +11,8 @@
 #include <stdio.h>
 #include <SFML/Graphics.hpp>
 
+bool randomizeEnemyBullets();
+
 class EnemyBullet{
 public:
     EnemyBullet(float x, float y);
@@ -19,7 +21,6 @@ public:
     float getXPos();
     bool isAlive = true;
 
-    bool randomizeEnemyBullets();
     
 private:
     float xPos;
