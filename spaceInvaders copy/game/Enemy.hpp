@@ -30,6 +30,7 @@ public:
     bool stillAlive();
     void kill();
 
+
 };
 
 #endif /* Enemy_hpp */
