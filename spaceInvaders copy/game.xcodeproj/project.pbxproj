@@ -43,6 +43,7 @@
 		078A5AAE26FA538F005D5FC2 /* EnemyBullet.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EnemyBullet.hpp; sourceTree = "<group>"; };
 		078A5AB026FA602A005D5FC2 /* Explosion.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Explosion.cpp; sourceTree = "<group>"; };
 		078A5AB126FA602A005D5FC2 /* Explosion.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Explosion.hpp; sourceTree = "<group>"; };
+		1864D06D26FA73F000EFF352 /* GrechenFuemen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GrechenFuemen-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +60,7 @@
 		075D028926F8E4C1007BA98D = {
 			isa = PBXGroup;
 			children = (
+				1864D06C26FA73D700EFF352 /* documents */,
 				075D029426F8E4C1007BA98D /* game */,
 				075D029326F8E4C1007BA98D /* Products */,
 			);
@@ -90,6 +92,14 @@
 				078A5AB126FA602A005D5FC2 /* Explosion.hpp */,
 			);
 			path = game;
+			sourceTree = "<group>";
+		};
+		1864D06C26FA73D700EFF352 /* documents */ = {
+			isa = PBXGroup;
+			children = (
+				1864D06D26FA73F000EFF352 /* GrechenFuemen-Regular.ttf */,
+			);
+			path = documents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

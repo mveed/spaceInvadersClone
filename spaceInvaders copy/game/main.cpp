@@ -29,6 +29,15 @@ std::vector<Enemy> populateEnemy(int number){
     return enemies;
 }
 
+void generateText(sf::Text & text, sf::Font & font, std::string str) {
+    text.setFont(font);
+    text.setString(str); // set the character size
+    text.setCharacterSize(48); // in pixels, not points!
+    text.setFillColor(sf::Color::Red);
+    // set the text style
+    text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+}
+
 float playerX = 600;
 
 int main()
@@ -62,6 +71,13 @@ int main()
     float distance = 1;
     
     
+    std::string fontsFile = "GrechenFuemen-Regular.ttf";
+    sf::Font grechenFuemen;
+    grechenFuemen.loadFromFile(fontsFile);
+    sf::Text text;
+    generateText(text, grechenFuemen, "234");
+
+    
     // create off screen enemyBullet, same as above for bullet
     std::vector<EnemyBullet> enemyBullets;
     EnemyBullet enemyBullet(-9999, -9999);
@@ -77,6 +93,7 @@ int main()
   // Run the program as long as the main window is open.
   while (window.isOpen())
     {
+        
       // Check all the window's events that were triggered since the last iteration of the loop
       sf::Event event;
       while (window.pollEvent(event))
@@ -89,7 +106,7 @@ int main()
 
       // clear the window with black color
       window.clear(sf::Color::Black);
-
+        
         // check keyboard inputs
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ){
             player.updatePos(player.getXPos() + moveSpeed);
@@ -164,8 +181,8 @@ int main()
                 }
             }
         }
-        
-    
+        text.setPosition(100, 100);
+        window.draw(text);
         // **** ill put enemy bullet code here
         
         // use random number to determine when to fire bullet
