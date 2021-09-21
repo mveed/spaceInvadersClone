@@ -13,6 +13,7 @@
 		075D02A426F90B00007BA98D /* Enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075D02A226F90B00007BA98D /* Enemy.cpp */; };
 		075D02A726F90B09007BA98D /* Bullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075D02A526F90B09007BA98D /* Bullet.cpp */; };
 		078A5AAF26FA538F005D5FC2 /* EnemyBullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 078A5AAD26FA538F005D5FC2 /* EnemyBullet.cpp */; };
+		078A5AB226FA602A005D5FC2 /* Explosion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 078A5AB026FA602A005D5FC2 /* Explosion.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,6 +41,8 @@
 		075D02A626F90B09007BA98D /* Bullet.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Bullet.hpp; sourceTree = "<group>"; };
 		078A5AAD26FA538F005D5FC2 /* EnemyBullet.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EnemyBullet.cpp; sourceTree = "<group>"; };
 		078A5AAE26FA538F005D5FC2 /* EnemyBullet.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EnemyBullet.hpp; sourceTree = "<group>"; };
+		078A5AB026FA602A005D5FC2 /* Explosion.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Explosion.cpp; sourceTree = "<group>"; };
+		078A5AB126FA602A005D5FC2 /* Explosion.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Explosion.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +86,8 @@
 				075D02A626F90B09007BA98D /* Bullet.hpp */,
 				078A5AAD26FA538F005D5FC2 /* EnemyBullet.cpp */,
 				078A5AAE26FA538F005D5FC2 /* EnemyBullet.hpp */,
+				078A5AB026FA602A005D5FC2 /* Explosion.cpp */,
+				078A5AB126FA602A005D5FC2 /* Explosion.hpp */,
 			);
 			path = game;
 			sourceTree = "<group>";
@@ -147,6 +152,7 @@
 				075D02A426F90B00007BA98D /* Enemy.cpp in Sources */,
 				078A5AAF26FA538F005D5FC2 /* EnemyBullet.cpp in Sources */,
 				075D029E26F8FF5F007BA98D /* Ball.cpp in Sources */,
+				078A5AB226FA602A005D5FC2 /* Explosion.cpp in Sources */,
 				075D029626F8E4C1007BA98D /* main.cpp in Sources */,
 				075D02A126F90AF4007BA98D /* Player.cpp in Sources */,
 			);

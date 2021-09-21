@@ -6,6 +6,7 @@
 #include "Enemy.hpp"
 #include "Bullet.hpp"
 #include "EnemyBullet.hpp"
+#include "Explosion.hpp"
 #include <vector>
 
 std::vector<Enemy> populateEnemy(int number){
@@ -60,6 +61,11 @@ int main()
     std::vector<EnemyBullet> enemyBullets;
     EnemyBullet enemyBullet(-9999, -9999);
     enemyBullets.push_back(enemyBullet);
+    
+    // create off screen explosion
+    std::vector<Explosion> explosions;
+    Explosion explosion(-9999, -9999);
+    explosions.push_back(explosion);
     
     
 
@@ -133,6 +139,9 @@ int main()
                 if (bulletBox.intersects(enemyBox) && enemies[j].isAlive && bullets[i].isAlive){
                     enemies[j].isAlive = false; // enemy killed
                     bullets[i].isAlive = false;
+                    // create explosion where enemy was killed
+                    Explosion explosion(enemies[j].getXPos(), enemies[j].getYPos());
+                    explosions.push_back(explosion);
                 }
             }
         }
@@ -169,6 +178,18 @@ int main()
         }
         // **** end enemy bullet code
 
+        // **** begin explosion code
+        for (int i = 0; i < explosions.size(); i++){
+            explosions[i].update();
+            std::cout << "i: " << i << " life: " << explosions[i].life << "\n";
+            if (explosions[i].isAlive){
+                explosions[i].explosionImage.setPosition(explosions[i].getXPos(), explosions[i].getYPos());
+                window.draw(explosions[i].explosionImage);
+            }
+        }
+        // **** end explosion code
+        
+        
       // end the current frame
       window.display();
     }
