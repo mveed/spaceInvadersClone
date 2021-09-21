@@ -8,10 +8,10 @@
 #include <vector>
 
 std::vector<Enemy> populateEnemy(int number){
-    float xSpace = 75;
+    float xSpace = 150;
     float ySpace = 75;
-    float xStart = 250;
-    float yStart = 250;
+    float xStart = 150;
+    float yStart = 150;
     std::vector<Enemy> enemies;
     for (int row = 0; row <= 4; row++){
         for (int col = 0; col <= 5; col++){
@@ -21,7 +21,7 @@ std::vector<Enemy> populateEnemy(int number){
             xStart += xSpace;
             enemies.push_back(newEnemy);
         }
-        xStart = 250;
+        xStart = 150;
         yStart += ySpace;
     }
     return enemies;
@@ -61,7 +61,10 @@ int main()
     // create off screen bullet
     Bullet bullet(player.getXPos() - 9999);
     bullets.push_back(bullet);
-    
+    float distance = 1;
+    float turningDistance = 0;
+    int enemiesKilled = 0;
+    float speed = 1 + enemiesKilled / 10;
     
 
   // Run the program as long as the main window is open.
@@ -107,10 +110,18 @@ int main()
         player.playerImage.setPosition(player.xPos, player.yPos);
         
         // only if enemy is alive draw and update
-        for (Enemy enemy : enemies){
+        bool hitBoarder = std::any_of(enemies.begin(), enemies.end(), [](Enemy en) -> bool { return en.getXPos() >= 1180 || en.getXPos() <= 10;});
+        if (hitBoarder) {
+            distance = -distance;
+            turningDistance = 20;
+        } else {
+            turningDistance = 0;
+        }
+        
+        for (Enemy & enemy : enemies){
             if (enemy.isAlive){
-                enemy.enemyImage.setPosition(enemy.xPos, enemy.yPos);
                 window.draw(enemy.enemyImage);
+                enemy.enemyImage.setPosition(enemy.updateXPos(distance), enemy.updateYPos(turningDistance));
             }
         }
         

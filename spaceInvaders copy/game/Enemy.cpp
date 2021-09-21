@@ -28,12 +28,19 @@ float Enemy::getYPos(){
     return yPos;
 }
 
-void Enemy::updatePos(float x, float y){
-    xPos = x;
-    yPos = y;
+float Enemy::updateXPos(float distance){
+    xPos += distance;
+    enemyBox.setPosition(xPos, yPos);
+    return xPos;
 }
 
-bool Enemy::stillAlive(){
+float Enemy::updateYPos(float distance){
+    yPos += distance;
+    enemyBox.setPosition(xPos, yPos);
+    return yPos;
+}
+
+bool Enemy::stillAlive() {
     
     return true;
 }
@@ -41,3 +48,5 @@ bool Enemy::stillAlive(){
 void Enemy::kill(){
     
 }
+
+

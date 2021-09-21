@@ -21,10 +21,12 @@ public:
     float xPos;
     float yPos;
     bool isAlive;
+    float movingDistance = 3;
     
     float getXPos();
     float getYPos();
-    void updatePos(float x, float y);
+    float updateXPos(float distance);
+    float updateYPos(float distance);
     bool stillAlive();
     void kill();
 
