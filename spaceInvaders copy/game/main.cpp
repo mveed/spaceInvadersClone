@@ -56,10 +56,11 @@ int main()
     // create off screen bullet
     Bullet bullet(player.getXPos() - 9999);
     bullets.push_back(bullet);
-    float distance = 1;
+    
     float turningDistance = 0;
-    int enemiesKilled = 0;
-    float speed = 1 + enemiesKilled / 10;
+    float enemiesKilled = 0;
+    float distance = 1;
+    
     
     // create off screen enemyBullet, same as above for bullet
     std::vector<EnemyBullet> enemyBullets;
@@ -154,10 +155,17 @@ int main()
                     // create explosion where enemy was killed
                     Explosion explosion(enemies[j].getXPos(), enemies[j].getYPos());
                     explosions.push_back(explosion);
+                    enemiesKilled += 1;
+                    if (distance < 0) {
+                        distance = -1 -(enemiesKilled / 5);
+                    } else {
+                        distance = 1 + (enemiesKilled / 5);
+                    }
                 }
             }
         }
         
+    
         // **** ill put enemy bullet code here
         
         // use random number to determine when to fire bullet
@@ -193,7 +201,6 @@ int main()
         // **** begin explosion code
         for (int i = 0; i < explosions.size(); i++){
             explosions[i].update();
-            std::cout << "i: " << i << " life: " << explosions[i].life << "\n";
             if (explosions[i].isAlive){
                 explosions[i].explosionImage.setPosition(explosions[i].getXPos(), explosions[i].getYPos());
                 window.draw(explosions[i].explosionImage);

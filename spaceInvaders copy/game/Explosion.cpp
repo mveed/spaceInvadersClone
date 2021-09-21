@@ -5,7 +5,7 @@
 //  Created by Matthew Veeder on 9/21/21.
 //
 
-#include "explosion.hpp"
+#include "Explosion.hpp"
 
 Explosion::Explosion(float x, float y){
     sf::CircleShape explosionShape(rand() % 5 + 20);
