@@ -7,6 +7,7 @@
 #include "Bullet.hpp"
 #include "EnemyBullet.hpp"
 #include "Explosion.hpp"
+#include "Screen.hpp"
 #include <vector>
 #include <string>
 
@@ -18,6 +19,7 @@ std::string gameState = "title";
 // loseLife
 // gameOver
 
+/*
 std::vector<Enemy> populateEnemy(int number){
     float xSpace = 150;
     float ySpace = 75;
@@ -37,6 +39,7 @@ std::vector<Enemy> populateEnemy(int number){
     }
     return enemies;
 }
+ */
 
 void generateText(sf::Text & text, sf::Font & font, std::string str) {
     text.setFont(font);
@@ -65,9 +68,10 @@ int main()
 
 //  float angle = 0.0;
     Player player;
-
     
-    std::vector<Enemy> enemies = populateEnemy(20);
+    Screen screen;
+    
+//    std::vector<Enemy> screen.enemies = screen.screen.enemies;
     
     // create a bullet off screen to allow code checking for bullets to execute,
     // return false if needed
@@ -116,8 +120,8 @@ int main()
             player.yPos = 1100;
             
             // delete all enemies
-            for (int i = 0; i < enemies.size(); i++){
-                enemies.pop_back();
+            for (int i = 0; i < screen.enemies.size(); i++){
+                screen.enemies.pop_back();
             }
             for (int i = 0; i < enemyBullets.size(); i++){
                 enemyBullets.pop_back();
@@ -138,7 +142,7 @@ int main()
             Explosion explosion(-9999, -9999);
             explosions.push_back(explosion);
             
-            enemies = populateEnemy(1);
+            screen.populateEnemies(20);
             
             // create a bullet off screen to allow code checking for bullets to execute,
             // return false if needed
@@ -237,7 +241,7 @@ int main()
         player.playerImage.setPosition(player.xPos, player.yPos);
         
         // only if enemy is alive draw and update
-        bool hitBoarder = std::any_of(enemies.begin(), enemies.end(), [](Enemy en) -> bool { return en.getXPos() >= 1180 || en.getXPos() <= 10;});
+        bool hitBoarder = std::any_of(screen.enemies.begin(), screen.enemies.end(), [](Enemy en) -> bool { return en.getXPos() >= 1180 || en.getXPos() <= 10;});
         if (hitBoarder) {
             distance = -distance;
             turningDistance = 20;
@@ -245,7 +249,7 @@ int main()
             turningDistance = 0;
         }
         
-        for (Enemy & enemy : enemies){
+        for (Enemy & enemy : screen.enemies){
             if (enemy.isAlive){
                 window.draw(enemy.enemyImage);
                 enemy.enemyImage.setPosition(enemy.updateXPos(distance), enemy.updateYPos(turningDistance));
@@ -265,15 +269,15 @@ int main()
             // get the bounding box for collision from bullet
             sf::FloatRect bulletBox = bullets[i].bulletImage.getGlobalBounds();
             // nested loop for each enemy to check against each bullet
-            for (int j = 0; j < enemies.size(); j++){
+            for (int j = 0; j < screen.enemies.size(); j++){
                 // get the bounding box for enemy
-                sf::FloatRect enemyBox = enemies[j].enemyBox.getGlobalBounds();
+                sf::FloatRect enemyBox = screen.enemies[j].enemyBox.getGlobalBounds();
                 
-                if (bulletBox.intersects(enemyBox) && enemies[j].isAlive && bullets[i].isAlive){
-                    enemies[j].isAlive = false; // enemy killed
+                if (bulletBox.intersects(enemyBox) && screen.enemies[j].isAlive && bullets[i].isAlive){
+                    screen.enemies[j].isAlive = false; // enemy killed
                     bullets[i].isAlive = false;
                     // create explosion where enemy was killed
-                    Explosion explosion(enemies[j].getXPos(), enemies[j].getYPos());
+                    Explosion explosion(screen.enemies[j].getXPos(), screen.enemies[j].getYPos());
                     explosions.push_back(explosion);
                     enemiesKilled += 1;
                     if (distance < 0) {
@@ -291,9 +295,9 @@ int main()
         // use random number to determine when to fire bullet
         // if returns true, create a new bullet at enemy position
         // create it inside enemyBullets vector
-        for (int i = 0; i < enemies.size(); i++)
-        if (randomizeEnemyBullets() && enemies[i].isAlive){
-            EnemyBullet enemyBullet(enemies[i].getXPos() + 20, enemies[i].getYPos()+ 25);
+        for (int i = 0; i < screen.enemies.size(); i++)
+        if (randomizeEnemyBullets() && screen.enemies[i].isAlive){
+            EnemyBullet enemyBullet(screen.enemies[i].getXPos() + 20, screen.enemies[i].getYPos()+ 25);
             enemyBullets.push_back(enemyBullet);
         }
 

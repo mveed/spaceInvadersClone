@@ -17,15 +17,15 @@
 
 class Screen {
 public:
-    std::vector<Enemy> enemies;            //
+    std::vector<Enemy> enemies;            
     std::vector<Bullet> playerBullets;
     std::vector<EnemyBullet> enemyBullets;
-    std::vector<Player> player;
+    Player player;
     sf::Text scoreText;
     sf::Text levelText;
     
     Screen();  // populate player, enemies
-    std::vector<Enemy> populateEnemies();
+    void populateEnemies( int numEnemies );
     
 };
 
