@@ -5,6 +5,7 @@
 #include "Player.hpp"
 #include "Enemy.hpp"
 #include "Bullet.hpp"
+#include "EnemyBullet.hpp"
 #include <vector>
 
 std::vector<Enemy> populateEnemy(int number){
@@ -130,6 +131,10 @@ int main()
                 }
             }
         }
+        
+        // **** ill put enemy bullet code here
+        
+        // **** end enemy bullet code
 
       // end the current frame
       window.display();
