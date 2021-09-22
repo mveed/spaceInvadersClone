@@ -21,7 +21,20 @@ Screen::Screen() { // populate player, enemies
     Explosion explosion(-9999, -9999);
     explosions.push_back(explosion);
     
+    std::string fontFile = "StickNoBills-ExtraLight.ttf";
+    gameFont.loadFromFile(fontFile);
+
+    scoreText.setFont(gameFont);
+    scoreText.setCharacterSize(48); // in pixels, not points!
+    scoreText.setFillColor(sf::Color::Red); // set the text style
+    scoreText.setStyle(sf::Text::Bold);
+    scoreText.setPosition(50, 50);
     
+    levelText.setFont(gameFont);
+    levelText.setCharacterSize(48); // in pixels, not points!
+    levelText.setFillColor(sf::Color::Red); // set the text style
+    levelText.setStyle(sf::Text::Bold);
+    levelText.setPosition(windowWidth - 300, 50);
 }
 
 void Screen::populateEnemies( int numEnemy ) {
@@ -69,7 +82,7 @@ void Screen::updateEnemies(sf::RenderWindow & window) {
     } else {
         turningDistance = 0;
     }
-    std::cout << enemies[0].xPos << std::endl;
+    
     for (Enemy & enemy : enemies){
         if (enemy.isAlive){
             // getting ready to load texture and filename
@@ -250,4 +263,20 @@ void Screen::windowCheckAndClear(sf::RenderWindow & window){
     // clear the window with black color
     window.clear(sf::Color::Black);
 
+}
+
+void Screen::updateGameStatistic(sf::RenderWindow & window) {
+    std::string scoreString = "Your Score: " + std::to_string(calculateScore());
+    std::string levelString = "Game Level: " + std::to_string(gameLevel);
+    
+    scoreText.setString(scoreString);
+    levelText.setString(levelString);
+    
+    window.draw(scoreText);
+    window.draw(levelText);
+    
+}
+
+int Screen::calculateScore() {
+    return enemiesKilled + enemiesKilled * gameLevel;
 }

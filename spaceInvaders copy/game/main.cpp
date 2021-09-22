@@ -21,12 +21,9 @@ std::string gameState = "title";
 
 
 void generateText(sf::Text & text, sf::Font & font, std::string str) {
-    text.setFont(font);
+    
     text.setString(str); // set the character size
-    text.setCharacterSize(48); // in pixels, not points!
-    text.setFillColor(sf::Color::Red);
-    // set the text style
-    text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+    
 }
 
 float playerX = 600;
@@ -38,11 +35,7 @@ int main()
 
     
     
-    std::string fontsFile = "GrechenFuemen-Regular.ttf";
-    sf::Font grechenFuemen;
-    grechenFuemen.loadFromFile(fontsFile);
-    sf::Text text;
-    generateText(text, grechenFuemen, "234");
+
     
     // start with shot counter ready to allow player to shoot
     // when bullet fires, set to positive value
@@ -116,9 +109,10 @@ int main()
         screen.keyBoardPressed(window);
         screen.updateEnemyBullets(window);
         screen.updateBullets(window);
-        screen.updateEnemies(window);
         screen.updateExplosion(window);
+        screen.updateEnemies(window);
         screen.shotCounter --;
+        screen.updateGameStatistic(window);
     // allow player to quit
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
             gameState = "title";

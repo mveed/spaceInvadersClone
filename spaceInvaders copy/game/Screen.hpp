@@ -25,11 +25,13 @@ public:
     Player player;
     sf::Text scoreText;
     sf::Text levelText;
+    sf::Font gameFont;
     
     float turningDistance = 0;
     float enemiesKilled = 0;
     float distance = 2;
     int shotCounter = 0;
+    int gameLevel = 1;
     
     const int windowWidth = 1200;
     const int windowHeight = 1200;
@@ -48,6 +50,8 @@ public:
     // default while loop initial behavior
     // clear window, check that window has not been exited
     void windowCheckAndClear(sf::RenderWindow & window);
+    void updateGameStatistic(sf::RenderWindow & window);
+    int calculateScore();
     
 };
 
