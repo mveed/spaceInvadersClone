@@ -55,6 +55,8 @@ public:
     void updateDistance();
     void setExplosion(int idx, sf::RenderWindow & window);
     
+    bool gameOver = false;
+    
 };
 
 

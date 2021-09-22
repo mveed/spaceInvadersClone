@@ -74,8 +74,8 @@ int main()
         
         
         while (gameState == "title"){
-            screen.deleteGameObjects();
-            screen.populateEnemies(20);
+//            screen.deleteGameObjects();
+//            screen.populateEnemies(20);
             // must be included in each state
             // ******
             

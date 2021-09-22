@@ -112,6 +112,9 @@ void Screen::updateEnemies(sf::RenderWindow & window) {
             // spriteTest.setColor(sf::Color(255, 0, 0));
             window.draw(alienSprite);
             enemy.enemyImage.setPosition(enemy.updateXPos(distance), enemy.updateYPos(turningDistance));
+            if (enemy.getYPos() > windowHeight - 100){
+                gameOver = true;
+            }
         }
     }
 }
@@ -142,6 +145,10 @@ void Screen::updateBullets(sf::RenderWindow & window) {
                 setExplosion(j, window);
             }
         }
+        if (enemies.size() == enemiesKilled){
+            gameLevel ++;
+            
+        }
     }
 }
 
@@ -169,6 +176,7 @@ void Screen::updateEnemyBullets(sf::RenderWindow & window) {
             if (playerBox.intersects(enemyBulletBox)){
                 enemyBullets[i].isAlive = false;
                 std::cout << "Player hit. \n";
+                gameOver = true;
             }
                 
             // position and draw update
