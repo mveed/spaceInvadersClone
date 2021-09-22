@@ -41,6 +41,11 @@
 		078A5AAE26FA538F005D5FC2 /* EnemyBullet.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EnemyBullet.hpp; sourceTree = "<group>"; };
 		078A5AB026FA602A005D5FC2 /* Explosion.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Explosion.cpp; sourceTree = "<group>"; };
 		078A5AB126FA602A005D5FC2 /* Explosion.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Explosion.hpp; sourceTree = "<group>"; };
+		07C0813326FBBA23001E6674 /* alien2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alien2.png; sourceTree = "<group>"; };
+		07C0813426FBBA23001E6674 /* alien1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alien1.png; sourceTree = "<group>"; };
+		07C0813526FBBA23001E6674 /* player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player.png; sourceTree = "<group>"; };
+		07C0813626FBBA23001E6674 /* alien3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alien3.png; sourceTree = "<group>"; };
+		07C0813726FBBA23001E6674 /* explosion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = explosion.png; sourceTree = "<group>"; };
 		1864D06D26FA73F000EFF352 /* GrechenFuemen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GrechenFuemen-Regular.ttf"; sourceTree = "<group>"; };
 		1864D06E26FA81F200EFF352 /* Screen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Screen.cpp; sourceTree = "<group>"; };
 		1864D06F26FA81F200EFF352 /* Screen.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Screen.hpp; sourceTree = "<group>"; };
@@ -97,6 +102,11 @@
 		1864D06C26FA73D700EFF352 /* documents */ = {
 			isa = PBXGroup;
 			children = (
+				07C0813426FBBA23001E6674 /* alien1.png */,
+				07C0813326FBBA23001E6674 /* alien2.png */,
+				07C0813626FBBA23001E6674 /* alien3.png */,
+				07C0813726FBBA23001E6674 /* explosion.png */,
+				07C0813526FBBA23001E6674 /* player.png */,
 				1864D06D26FA73F000EFF352 /* GrechenFuemen-Regular.ttf */,
 			);
 			path = documents;

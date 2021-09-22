@@ -20,6 +20,7 @@ public:
     float yPos;
     bool isAlive;
     int life = 10;
+    int fromEnemyIndex;
     
     void update();
     float getXPos();

@@ -135,6 +135,7 @@ void Screen::updateBullets(sf::RenderWindow & window) {
                 playerBullets[i].isAlive = false;
                 // create explosion where enemy was killed
                 Explosion explosion(enemies[j].getXPos(), enemies[j].getYPos());
+                explosion.fromEnemyIndex = j;
                 explosions.push_back(explosion);
                 enemiesKilled += 1;
                 if (distance < 0) {
@@ -142,6 +143,7 @@ void Screen::updateBullets(sf::RenderWindow & window) {
                 } else {
                     distance = 1 + (enemiesKilled / 5);
                 }
+                explosions[j].explosionImage.setPosition(enemies[j].getXPos(), explosions[j].getYPos());
             }
         }
     }
@@ -197,7 +199,8 @@ void Screen::updateExplosion(sf::RenderWindow & window) {
                 
             // set sprite and draw
             sf::Sprite explosionSprite(imageFile);
-            explosionSprite.setPosition(explosions[i].xPos, explosions[i].yPos);
+            explosions[i].xPos += distance;
+//            explosionSprite.setPosition(explosions[i].xPos, explosions[i].yPos);
             explosionSprite.setScale(sf::Vector2f(5.f, 5.f));
             // spriteTest.setColor(sf::Color(255, 0, 0));
             if (explosions[i].life > 3){
@@ -205,6 +208,7 @@ void Screen::updateExplosion(sf::RenderWindow & window) {
             } else {
                 explosionSprite.setColor(sf::Color(255, 255, 255));
             }
+            explosionSprite.setPosition(explosions[i].getXPos(), explosions[i].getYPos());
             window.draw(explosionSprite);
 //            window.draw(explosions[i].explosionImage);
         }
