@@ -69,7 +69,7 @@ void Screen::updateEnemies(sf::RenderWindow & window) {
     } else {
         turningDistance = 0;
     }
-    std::cout << enemies[0].xPos << std::endl;
+
     for (Enemy & enemy : enemies){
         if (enemy.isAlive){
             // getting ready to load texture and filename
@@ -122,6 +122,7 @@ void Screen::updateBullets(sf::RenderWindow & window) {
                 playerBullets[i].isAlive = false;
                 // create explosion where enemy was killed
                 Explosion explosion(enemies[j].getXPos(), enemies[j].getYPos());
+                explosion.fromEnemyIndex = j;
                 explosions.push_back(explosion);
                 enemiesKilled += 1;
                 if (distance < 0) {
@@ -184,6 +185,7 @@ void Screen::updateExplosion(sf::RenderWindow & window) {
                 
             // set sprite and draw
             sf::Sprite explosionSprite(imageFile);
+            explosions[i].xPos += distance;
             explosionSprite.setPosition(explosions[i].xPos, explosions[i].yPos);
             explosionSprite.setScale(sf::Vector2f(5.f, 5.f));
             // spriteTest.setColor(sf::Color(255, 0, 0));
