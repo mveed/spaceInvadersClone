@@ -35,6 +35,12 @@ Screen::Screen() { // populate player, enemies
     levelText.setFillColor(sf::Color::Red); // set the text style
     levelText.setStyle(sf::Text::Bold);
     levelText.setPosition(windowWidth - 300, 50);
+    
+    gameOverText.setFont(gameFont);
+    gameOverText.setCharacterSize(92); // in pixels, not points!
+    gameOverText.setFillColor(sf::Color::Red); // set the text style
+    gameOverText.setStyle(sf::Text::Bold);
+    gameOverText.setPosition(400, 400);
 }
 
 void Screen::populateEnemies( int numEnemy ) {
@@ -168,19 +174,20 @@ void Screen::updateEnemyBullets(sf::RenderWindow & window) {
     // and draw as well
     for (int i = 0; i < enemyBullets.size(); i++){
         if (enemyBullets[i].isAlive){
+            enemyBullets[i].enemyBulletImage.setPosition(enemyBullets[i].getXPos(), enemyBullets[i].updateYPos());
             // get the bounding box for collision from enemy bullet and player
             sf::FloatRect enemyBulletBox = enemyBullets[i].enemyBulletImage.getGlobalBounds();
+            player.playerImage.setPosition(player.getXPos(), player.yPos);
             sf::FloatRect playerBox = player.playerImage.getGlobalBounds();
-            
             // should add && to if for player.isAlive bool
             if (playerBox.intersects(enemyBulletBox)){
                 enemyBullets[i].isAlive = false;
-                std::cout << "Player hit. \n";
                 gameOver = true;
+                std::cout << "Player hit. \n";
             }
                 
             // position and draw update
-            enemyBullets[i].enemyBulletImage.setPosition(enemyBullets[i].getXPos(), enemyBullets[i].updateYPos());
+
             window.draw(enemyBullets[i].enemyBulletImage);
         }
     }
@@ -324,3 +331,25 @@ void Screen::setExplosion(int idx, sf::RenderWindow & window) {
     newExplosion.explosionImage.setPosition(xPos, yPos);
     window.draw(newExplosion.explosionImage);
 }
+
+void Screen::gameOverReset(std::string & gameState, sf::RenderWindow & window){
+    deleteGameObjects();
+    enemiesKilled = 0;
+    distance = 1;
+    int gameOverCounter = 120;
+    while (gameOverCounter > 0){
+        window.clear(sf::Color::Black);
+        std::string gameOverString = "Game Over ";
+        
+        gameOverText.setString(gameOverString);
+        
+        window.draw(gameOverText);
+        gameOverCounter --;
+        window.display();
+        
+    }
+    gameOver = false;
+    gameState = "title";
+}
+
+
