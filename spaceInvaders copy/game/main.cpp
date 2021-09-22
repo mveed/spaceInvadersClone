@@ -115,9 +115,15 @@ int main()
         screen.updateGameStatistic(window);
     // allow player to quit
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
-            gameState = "title";
+            screen.gameOverReset(gameState, window);
         }
         
+        // if any conditions are met for game over
+        // player hit by bullet
+        // enemies too low
+        if (screen.gameOver == true){
+            screen.gameOverReset(gameState, window);
+        }
         
       // end the current frame
       window.display();

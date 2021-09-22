@@ -25,13 +25,14 @@ public:
     Player player;
     sf::Text scoreText;
     sf::Text levelText;
+    sf::Text gameOverText;
     sf::Font gameFont;
     bool gameOver = false;
     
     float turningDistance = 0;
     float enemiesKilled = 0;
     float distance = 1;
-    int shotCounter = 0;
+    int shotCounter = 30;
     int gameLevel = 1;
     int loops = 0;
     
@@ -59,6 +60,8 @@ public:
     void levelUp();
     
     
+    
+    void gameOverReset(std::string & gameState, sf::RenderWindow & window);
     
 };
 

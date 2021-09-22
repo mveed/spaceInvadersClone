@@ -35,6 +35,12 @@ Screen::Screen() { // populate player, enemies
     levelText.setFillColor(sf::Color::Red); // set the text style
     levelText.setStyle(sf::Text::Bold);
     levelText.setPosition(windowWidth - 300, 50);
+    
+    gameOverText.setFont(gameFont);
+    gameOverText.setCharacterSize(92); // in pixels, not points!
+    gameOverText.setFillColor(sf::Color::Red); // set the text style
+    gameOverText.setStyle(sf::Text::Bold);
+    gameOverText.setPosition(400, 400);
 }
 
 void Screen::populateEnemies( int numEnemy ) {
@@ -167,22 +173,23 @@ void Screen::updateEnemyBullets(sf::RenderWindow & window) {
     // and draw as well
     sf::FloatRect playerBox = player.playerImage.getGlobalBounds(); 
     for (int i = 0; i < enemyBullets.size(); i++){
-        
-        // get the bounding box for collision from enemy bullet and player
-        sf::FloatRect enemyBulletBox = enemyBullets[i].enemyBulletImage.getGlobalBounds();
-        
-//        playerBox.setPosition(player.getXPos(), player.yPos);
-        loops++;
-        // should add && to if for player.isAlive bool
-        if (playerBox.intersects(enemyBulletBox) && loops > 30){
-            std::cout << "Player hit. \n";
-            gameOver = true;
+        if (enemyBullets[i].isAlive){
+            enemyBullets[i].enemyBulletImage.setPosition(enemyBullets[i].getXPos(), enemyBullets[i].updateYPos());
+            // get the bounding box for collision from enemy bullet and player
+            sf::FloatRect enemyBulletBox = enemyBullets[i].enemyBulletImage.getGlobalBounds();
+            player.playerImage.setPosition(player.getXPos(), player.yPos);
+            sf::FloatRect playerBox = player.playerImage.getGlobalBounds();
+            // should add && to if for player.isAlive bool
+            if (playerBox.intersects(enemyBulletBox)){
+                enemyBullets[i].isAlive = false;
+                gameOver = true;
+                std::cout << "Player hit. \n";
+            }
+                
+            // position and draw update
+
+            window.draw(enemyBullets[i].enemyBulletImage);
         }
-            
-        // position and draw update
-        enemyBullets[i].enemyBulletImage.setPosition(enemyBullets[i].getXPos(), enemyBullets[i].updateYPos());
-        window.draw(enemyBullets[i].enemyBulletImage);
-        
     }
 }
 
@@ -237,7 +244,7 @@ void Screen::keyBoardPressed(sf::RenderWindow & window) {
         Bullet bullet(player.getXPos() + 30);
         playerBullets.push_back(bullet);
         // higher values slow down rate of fire
-        shotCounter = 15;
+        shotCounter = 30;
     }
 
     // setup texture and file name
