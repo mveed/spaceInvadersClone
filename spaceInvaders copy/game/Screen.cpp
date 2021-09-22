@@ -45,33 +45,33 @@ void Screen::populateEnemies( int numEnemy ) {
 
 void Screen::deleteGameObjects(){
      // delete all enemies
-            for (int i = 0; i < enemies.size(); i++){
-                enemies.pop_back();
-            }
-            for (int i = 0; i < enemyBullets.size(); i++){
-                enemyBullets.pop_back();
-            }
-            for (int i = 0; i < playerBullets.size(); i++){
-                playerBullets.pop_back();
-            }
-            for (int i = 0; i < explosions.size(); i++){
-                explosions.pop_back();
-            }
+    enemies = {};
+    for (int i = 1; i < enemyBullets.size(); i++){
+        enemyBullets.pop_back();
+    }
+    for (int i = 1; i < playerBullets.size(); i++){
+        playerBullets.pop_back();
+    }
+    for (int i = 1; i < explosions.size(); i++){
+        explosions.pop_back();
+    }
 }
 
 void Screen::updateEnemies(sf::RenderWindow & window) {
-    bool hitBoarder = std::any_of(enemies.begin(), enemies.end(), [](Enemy en) -> bool { return en.getXPos() >= 1180 || en.getXPos() <= 10;});
+
+    bool hitBoarder = std::any_of(enemies.begin(), enemies.end(), [](Enemy en) -> bool { return en.getXPos() >=  1180 || en.getXPos() <= 10;});
     if (hitBoarder) {
+        std::cout << "hit boarder.\n";
         distance = -distance;
         turningDistance = 20;
     } else {
         turningDistance = 0;
     }
-    
+    std::cout << enemies[0].xPos << std::endl;
     for (Enemy & enemy : enemies){
         if (enemy.isAlive){
-            window.draw(enemy.enemyImage);
             enemy.enemyImage.setPosition(enemy.updateXPos(distance), enemy.updateYPos(turningDistance));
+            window.draw(enemy.enemyImage);
         }
     }
 }
@@ -169,6 +169,6 @@ void Screen::keyBoardPressed(sf::RenderWindow & window) {
         // higher values slow down rate of fire
         shotCounter = 30;
     }
-    
+    player.playerImage.setPosition(player.getXPos(), player.yPos);
     window.draw(player.playerImage);
 }

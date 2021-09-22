@@ -28,7 +28,7 @@ public:
     
     float turningDistance = 0;
     float enemiesKilled = 0;
-    float distance = 1;
+    float distance = 2;
     int shotCounter = 0;
     
     const int windowWidth = 1200;

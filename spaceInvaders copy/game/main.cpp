@@ -48,7 +48,6 @@ int main()
     // when bullet fires, set to positive value
     // constantly --, then when value is <0 allow another
     // bullet to be fire
-    int shotCounter = 0;
   // Create the main program window.
 
 
@@ -125,6 +124,8 @@ int main()
       // Check all the window's events that were triggered since the last iteration of the loop
       sf::Event event;
       while (window.pollEvent(event)) {
+          text.setPosition(100, 100);
+          window.draw(text);
           // "close requested" event: we close the window
           if (event.type == sf::Event::Closed) {
               gameState = "exit";
@@ -133,48 +134,15 @@ int main()
         }
 
       // clear the window with black color
-      window.clear(sf::Color::Black);
+        window.clear(sf::Color::Black);
 
-        screen.deleteGameObjects();
-        screen.populateEnemies(20);
-
-      // ***** end of required for each state
-
-        // check keyboard inputs
-
-        
-        // fire bullets
-        // if space is pressed, and its been long enough since last bullet has been shot
+        screen.updateEnemies(window);
         screen.keyBoardPressed(window);
-        
-        screen.shotCounter --;
-       
-        
-        // only if enemy is alive draw and update
-        screen.updateEnemies(window);
         screen.updateEnemyBullets(window);
-        std::cout << screen.player.xPos << std::endl;
-    
-        
-        // update bullets
-        // nested loop to check for each bullet if collision with each
-        // enemy
         screen.updateBullets(window);
-        text.setPosition(100, 100);
-        window.draw(text);
-        // **** ill put enemy bullet code here
-        
-        // use random number to determine when to fire bullet
-        // if returns true, create a new bullet at enemy position
-        // create it inside enemyBullets vector
         screen.updateEnemies(window);
-        
-        // **** end enemy bullet code
-
-        // **** begin explosion code
         screen.updateExplosion(window);
-        // **** end explosion code
-        
+        screen.shotCounter --;
     // allow player to quit
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
             gameState = "title";
