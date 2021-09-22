@@ -40,7 +40,7 @@ Screen::Screen() { // populate player, enemies
     gameOverText.setCharacterSize(92); // in pixels, not points!
     gameOverText.setFillColor(sf::Color::Red); // set the text style
     gameOverText.setStyle(sf::Text::Bold);
-    gameOverText.setPosition(400, 400);
+    gameOverText.setPosition(windowWidth/2 - 190, windowHeight - 800);
 }
 
 void Screen::populateEnemies( int numEnemy ) {
