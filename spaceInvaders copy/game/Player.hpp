@@ -20,7 +20,7 @@ public:
     float xPos;
     float yPos;
     sf::RectangleShape playerImage;
-    Player();
+    Player(int x, int y);
     void updatePos(float pos);
     float getXPos();
 

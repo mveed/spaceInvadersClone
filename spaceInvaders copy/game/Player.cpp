@@ -9,11 +9,11 @@
 #include <SFML/Graphics.hpp>
 
 
-Player::Player(){
+Player::Player(int x, int y){
     sf::RectangleShape playerSprite(sf::Vector2f(65, 50));
     playerSprite.setFillColor(sf::Color(150, 150, 150));
-    xPos = 600;
-    yPos = 1100;
+    xPos = x/2 - 100;
+    yPos = y - 100;
     playerImage = playerSprite;
     playerSprite.setPosition(xPos, yPos);
 }
