@@ -340,3 +340,23 @@ void Screen::levelUp() {
     distance = gameLevel;
     enemiesKilled = 0;
 }
+
+void Screen::gameOverReset(std::string & gameState, sf::RenderWindow & window){
+    deleteGameObjects();
+    enemiesKilled = 0;
+    distance = 1;
+    int gameOverCounter = 120;
+    while (gameOverCounter > 0){
+        window.clear(sf::Color::Black);
+        std::string gameOverString = "Game Over ";
+        
+        gameOverText.setString(gameOverString);
+        
+        window.draw(gameOverText);
+        gameOverCounter --;
+        window.display();
+        
+    }
+    gameOver = false;
+    gameState = "title";
+}
