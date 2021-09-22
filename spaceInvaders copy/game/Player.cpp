@@ -12,8 +12,10 @@
 Player::Player(){
     sf::RectangleShape playerSprite(sf::Vector2f(65, 50));
     playerSprite.setFillColor(sf::Color(150, 150, 150));
+    xPos = 1200*1.5/2;
+    yPos = 1100;
     playerImage = playerSprite;
-    playerSprite.setPosition(xPos, yPos);
+    playerImage.setPosition(xPos, yPos);
 }
 
 void Player::updatePos(float pos){

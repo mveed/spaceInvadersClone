@@ -13,9 +13,6 @@
 
 class Player{
 
-
-    
-    
 public:
     float xPos;
     float yPos;

@@ -23,6 +23,7 @@ public:
     std::vector<EnemyBullet> enemyBullets;
     std::vector<Explosion> explosions;
     Player player;
+    
     sf::Text scoreText;
     sf::Text levelText;
     sf::Text gameOverText;
@@ -39,6 +40,7 @@ public:
     const int windowWidth = 1200 * 1.5;
     const int windowHeight = 1200;
     const int moveSpeed = 10;
+    
     
     Screen();  // populate player, enemies
     void populateEnemies( int numEnemies );

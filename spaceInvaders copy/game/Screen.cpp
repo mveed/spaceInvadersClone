@@ -10,7 +10,6 @@
 
 Screen::Screen() { // populate player, enemies
     populateEnemies(20);
-    
 // create off screen playerBullet enemyBullet & explosion for the window to draw.
     Bullet playerBulletOffScreen(player.getXPos() - 9999);
     playerBullets.push_back(playerBulletOffScreen);
@@ -171,7 +170,6 @@ void Screen::updateEnemyBullets(sf::RenderWindow & window) {
 
     // iterate through each bullet, if its alive, check for collision with player update the position
     // and draw as well
-    sf::FloatRect playerBox = player.playerImage.getGlobalBounds(); 
     for (int i = 0; i < enemyBullets.size(); i++){
         if (enemyBullets[i].isAlive){
             enemyBullets[i].enemyBulletImage.setPosition(enemyBullets[i].getXPos(), enemyBullets[i].updateYPos());
