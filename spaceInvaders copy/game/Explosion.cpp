@@ -10,13 +10,12 @@
 Explosion::Explosion(float x, float y){
     sf::CircleShape explosionShape(rand() % 5 + 20);
     explosionShape.setFillColor(sf::Color(255, 0, 0));
-    int randX = rand() % 5 - 2.5;
-    int randY = rand() % 5 - 2.5;
-    xPos = x + randX;  // % helps to randomize slightly where explosion is created around enemy
-    yPos = y + randY;
+//    int randX = rand() % 5 - 2.5;
+//    int randY = rand() % 5 - 2.5;
+    xPos = x; /* + randX;  // % helps to randomize slightly where explosion is created around enemy */
+    yPos = y;  /*+ randY; */
     explosionImage = explosionShape;
     isAlive = true;
-    int life = 600 ;
 }
 
 float Explosion::getXPos(){

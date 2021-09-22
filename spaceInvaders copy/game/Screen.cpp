@@ -76,7 +76,6 @@ void Screen::updateEnemies(sf::RenderWindow & window) {
 
     bool hitBoarder = std::any_of(enemies.begin(), enemies.end(), [](Enemy en) -> bool { return en.getXPos() >=  1180 || en.getXPos() <= 10;});
     if (hitBoarder) {
-        std::cout << "hit boarder.\n";
         distance = -distance;
         turningDistance = 20;
     } else {
@@ -134,16 +133,13 @@ void Screen::updateBullets(sf::RenderWindow & window) {
                 enemies[j].isAlive = false; // enemy killed
                 playerBullets[i].isAlive = false;
                 // create explosion where enemy was killed
-                Explosion explosion(enemies[j].getXPos(), enemies[j].getYPos());
-                explosion.fromEnemyIndex = j;
-                explosions.push_back(explosion);
+//                Explosion explosion(enemies[j].getXPos(), enemies[j].getYPos());
+//                explosion.fromEnemyIndex = j;
+//                explosions.push_back(explosion);
                 enemiesKilled += 1;
-                if (distance < 0) {
-                    distance = -1 -(enemiesKilled / 5);
-                } else {
-                    distance = 1 + (enemiesKilled / 5);
-                }
-                explosions[j].explosionImage.setPosition(enemies[j].getXPos(), explosions[j].getYPos());
+                updateDistance();
+//                explosions[j].explosionImage.setPosition(enemies[j].getXPos(), explosions[j].getYPos());
+                setExplosion(j, window);
             }
         }
     }
@@ -283,4 +279,40 @@ void Screen::updateGameStatistic(sf::RenderWindow & window) {
 
 int Screen::calculateScore() {
     return enemiesKilled + enemiesKilled * gameLevel;
+}
+
+
+void Screen::updateDistance() {
+    int sign = distance < 0 ? -1 : 1;
+    distance = sign + sign *(enemiesKilled / 7);
+}
+
+
+void Screen::setExplosion(int idx, sf::RenderWindow & window) {
+    int xPos = enemies[idx].getXPos();
+    int yPos = enemies[idx].getYPos();
+    Explosion  newExplosion(xPos, yPos);
+    newExplosion.update();
+    if (newExplosion.isAlive){
+        // setup texture and file name
+        sf::Texture imageFile;
+        std::string fileName = "explosion.png";
+        // load file, test that it opens
+        if(!imageFile.loadFromFile(fileName)){
+            std::cout << "Failed to load " << fileName;
+            exit(9);
+        }
+        sf::Sprite explosionSprite(imageFile);
+        
+        explosionSprite.setScale(sf::Vector2f(5.f, 5.f));
+        if (newExplosion.life > 3){
+            explosionSprite.setColor(sf::Color(255, 0, 0));
+        } else {
+            explosionSprite.setColor(sf::Color(255, 255, 255));
+        }
+        explosionSprite.setPosition(xPos, yPos);
+        window.draw(explosionSprite);
+    }
+    newExplosion.explosionImage.setPosition(xPos, yPos);
+    window.draw(newExplosion.explosionImage);
 }

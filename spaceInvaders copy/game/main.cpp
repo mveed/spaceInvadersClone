@@ -109,7 +109,7 @@ int main()
         screen.keyBoardPressed(window);
         screen.updateEnemyBullets(window);
         screen.updateBullets(window);
-        screen.updateExplosion(window);
+//        screen.updateExplosion(window);
         screen.updateEnemies(window);
         screen.shotCounter --;
         screen.updateGameStatistic(window);

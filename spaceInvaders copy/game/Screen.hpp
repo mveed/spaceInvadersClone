@@ -29,7 +29,7 @@ public:
     
     float turningDistance = 0;
     float enemiesKilled = 0;
-    float distance = 2;
+    float distance = 1;
     int shotCounter = 0;
     int gameLevel = 1;
     
@@ -52,6 +52,8 @@ public:
     void windowCheckAndClear(sf::RenderWindow & window);
     void updateGameStatistic(sf::RenderWindow & window);
     int calculateScore();
+    void updateDistance();
+    void setExplosion(int idx, sf::RenderWindow & window);
     
 };
 
