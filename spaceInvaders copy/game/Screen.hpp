@@ -45,7 +45,9 @@ public:
     bool randomizeEnemyBullets();
     void keyBoardPressed(sf::RenderWindow & window);
     
-    
+    // default while loop initial behavior
+    // clear window, check that window has not been exited
+    void windowCheckAndClear(sf::RenderWindow & window);
     
 };
 

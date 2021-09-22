@@ -172,3 +172,20 @@ void Screen::keyBoardPressed(sf::RenderWindow & window) {
     player.playerImage.setPosition(player.getXPos(), player.yPos);
     window.draw(player.playerImage);
 }
+
+void Screen::windowCheckAndClear(sf::RenderWindow & window){
+    // Check all the window's events that were triggered since the last iteration of the loop
+    sf::Event event;
+    while (window.pollEvent(event))
+      {
+        // "close requested" event: we close the window
+        if (event.type == sf::Event::Closed) {
+          window.close();
+
+        }
+      }
+
+    // clear the window with black color
+    window.clear(sf::Color::Black);
+
+}

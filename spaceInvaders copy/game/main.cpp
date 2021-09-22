@@ -85,30 +85,15 @@ int main()
             screen.populateEnemies(20);
             // must be included in each state
             // ******
-            sf::Event event;
-            while (window.pollEvent(event))
-              {
-                // "close requested" event: we close the window
-                if (event.type == sf::Event::Closed) {
-                    gameState = "exit";
-                  window.close();
-                }
-              }
-
-            // clear the window with black color
-            window.clear(sf::Color::Black);
+            
+            // clear window from previous frame, check that
+            // window is not closed
+            screen.windowCheckAndClear(window);
+            if (!window.isOpen()){
+                gameState = "exit";
+            }
             // ******* end of must be included in each state
-    
-            sf::RectangleShape titleSquare(sf::Vector2f(1000, 150));
-            titleSquare.setFillColor(sf::Color(200, 200, 200));
-            titleSquare.setPosition(100, 150);
-            
-            sf::RectangleShape titleSquare2(sf::Vector2f(800, 150));
-            titleSquare2.setFillColor(sf::Color(200, 200, 200));
-            titleSquare2.setPosition(200, 950);
-            
-            window.draw(titleSquare);
-            window.draw(titleSquare2);
+
             
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
                 gameState = "setupNewGame";
@@ -122,19 +107,10 @@ int main()
       // ***** required for each state
         
       // Check all the window's events that were triggered since the last iteration of the loop
-      sf::Event event;
-      while (window.pollEvent(event)) {
-          text.setPosition(100, 100);
-          window.draw(text);
-          // "close requested" event: we close the window
-          if (event.type == sf::Event::Closed) {
-              gameState = "exit";
-            window.close();
-          }
+        screen.windowCheckAndClear(window);
+        if (!window.isOpen()){
+            gameState = "exit";
         }
-
-      // clear the window with black color
-        window.clear(sf::Color::Black);
 
         screen.updateEnemies(window);
         screen.keyBoardPressed(window);
