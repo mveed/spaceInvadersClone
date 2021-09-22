@@ -9,6 +9,7 @@
 #define Screen_hpp
 
 #include <stdio.h>
+#include <iostream>
 #include "Enemy.hpp"
 #include "Bullet.hpp"
 #include "EnemyBullet.hpp"
@@ -20,15 +21,34 @@ public:
     std::vector<Enemy> enemies;            
     std::vector<Bullet> playerBullets;
     std::vector<EnemyBullet> enemyBullets;
+    std::vector<Explosion> explosions;
     Player player;
     sf::Text scoreText;
     sf::Text levelText;
     
+    float turningDistance = 0;
+    float enemiesKilled = 0;
+    float distance = 1;
+    int shotCounter = 0;
+    
+    const int windowWidth = 1200;
+    const int windowHeight = 1200;
+    const int moveSpeed = 10;
+    
     Screen();  // populate player, enemies
     void populateEnemies( int numEnemies );
+    void deleteGameObjects();
+    void updateEnemies(sf::RenderWindow & window);
+    void updateBullets(sf::RenderWindow & window);
+    void updateEnemyBullets(sf::RenderWindow & window);
+    void updateExplosion(sf::RenderWindow & window);
+    bool randomizeEnemyBullets();
+    void keyBoardPressed(sf::RenderWindow & window);
     
-    void deleteGameObjects(std::vector<Enemy> & a, std::vector<EnemyBullet> & b, std::vector<Bullet> & c, std::vector<Explosion> & d);
+    
     
 };
+
+
 
 #endif /* Screen_hpp */

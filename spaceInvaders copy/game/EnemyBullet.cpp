@@ -7,10 +7,7 @@
 #include "EnemyBullet.hpp"
 
 // uses random number to decide when to create a new bullet
-bool randomizeEnemyBullets(){
-    int x = rand() % 10000;
-    return (x > 9985);
-}
+
 
 // bullet moves down screen, return value
 // to update setPosition

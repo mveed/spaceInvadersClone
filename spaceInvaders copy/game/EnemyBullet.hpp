@@ -17,6 +17,7 @@ class EnemyBullet{
 public:
     EnemyBullet(float x, float y);
     sf::RectangleShape enemyBulletImage;
+    
     float updateYPos();
     float getXPos();
     bool isAlive = true;

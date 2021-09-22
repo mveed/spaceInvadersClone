@@ -15,6 +15,7 @@ Player::Player(){
     xPos = 600;
     yPos = 1100;
     playerImage = playerSprite;
+    playerSprite.setPosition(xPos, yPos);
 }
 
 void Player::updatePos(float pos){
