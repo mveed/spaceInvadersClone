@@ -344,6 +344,8 @@ void Screen::gameOverReset(std::string & gameState, sf::RenderWindow & window){
     deleteGameObjects();
     enemiesKilled = 0;
     distance = 1;
+    player.xPos = 1200*1.5/2;
+    player.yPos = 1100;
     int gameOverCounter = 120;
     while (gameOverCounter > 0){
         window.clear(sf::Color::Black);
