@@ -74,12 +74,16 @@ void Screen::deleteGameObjects(){
 
 void Screen::updateEnemies(sf::RenderWindow & window) {
 
-    bool hitBoarder = std::any_of(enemies.begin(), enemies.end(), [](Enemy en) -> bool { return en.getXPos() >=  1180 || en.getXPos() <= 10;});
-    if (hitBoarder) {
-        distance = -distance;
-        turningDistance = 20;
-    } else {
+//    bool hitBoarder = std::any_of(enemies.begin(), enemies.end(), [](Enemy en) -> bool { return en.getXPos() >=  1180 || en.getXPos() <= 10;});
+    bool hitBoarder = false;
+    for (Enemy & enemy : enemies) {
         turningDistance = 0;
+        if (enemy.getXPos() >= windowWidth - 50 || enemy.getXPos() <= 10) {
+            hitBoarder = true;
+            distance = -distance;
+            turningDistance = 20;
+            break;;
+        }
     }
     
     for (Enemy & enemy : enemies){
@@ -135,19 +139,14 @@ void Screen::updateBullets(sf::RenderWindow & window) {
             if (bulletBox.intersects(enemyBox) && enemies[j].isAlive && playerBullets[i].isAlive){
                 enemies[j].isAlive = false; // enemy killed
                 playerBullets[i].isAlive = false;
-                // create explosion where enemy was killed
-//                Explosion explosion(enemies[j].getXPos(), enemies[j].getYPos());
-//                explosion.fromEnemyIndex = j;
-//                explosions.push_back(explosion);
                 enemiesKilled += 1;
                 updateDistance();
-//                explosions[j].explosionImage.setPosition(enemies[j].getXPos(), explosions[j].getYPos());
+
                 setExplosion(j, window);
             }
         }
         if (enemies.size() == enemiesKilled){
-            gameLevel ++;
-            
+            levelUp();
         }
     }
 }
@@ -166,23 +165,24 @@ void Screen::updateEnemyBullets(sf::RenderWindow & window) {
 
     // iterate through each bullet, if its alive, check for collision with player update the position
     // and draw as well
+    sf::FloatRect playerBox = player.playerImage.getGlobalBounds(); 
     for (int i = 0; i < enemyBullets.size(); i++){
-        if (enemyBullets[i].isAlive){
-            // get the bounding box for collision from enemy bullet and player
-            sf::FloatRect enemyBulletBox = enemyBullets[i].enemyBulletImage.getGlobalBounds();
-            sf::FloatRect playerBox = player.playerImage.getGlobalBounds();
-            
-            // should add && to if for player.isAlive bool
-            if (playerBox.intersects(enemyBulletBox)){
-                enemyBullets[i].isAlive = false;
-                std::cout << "Player hit. \n";
-                gameOver = true;
-            }
-                
-            // position and draw update
-            enemyBullets[i].enemyBulletImage.setPosition(enemyBullets[i].getXPos(), enemyBullets[i].updateYPos());
-            window.draw(enemyBullets[i].enemyBulletImage);
+        
+        // get the bounding box for collision from enemy bullet and player
+        sf::FloatRect enemyBulletBox = enemyBullets[i].enemyBulletImage.getGlobalBounds();
+        
+//        playerBox.setPosition(player.getXPos(), player.yPos);
+        loops++;
+        // should add && to if for player.isAlive bool
+        if (playerBox.intersects(enemyBulletBox) && loops > 30){
+            std::cout << "Player hit. \n";
+            gameOver = true;
         }
+            
+        // position and draw update
+        enemyBullets[i].enemyBulletImage.setPosition(enemyBullets[i].getXPos(), enemyBullets[i].updateYPos());
+        window.draw(enemyBullets[i].enemyBulletImage);
+        
     }
 }
 
@@ -237,7 +237,7 @@ void Screen::keyBoardPressed(sf::RenderWindow & window) {
         Bullet bullet(player.getXPos() + 30);
         playerBullets.push_back(bullet);
         // higher values slow down rate of fire
-        shotCounter = 30;
+        shotCounter = 15;
     }
 
     // setup texture and file name
@@ -292,7 +292,7 @@ int Screen::calculateScore() {
 
 void Screen::updateDistance() {
     int sign = distance < 0 ? -1 : 1;
-    distance = sign + sign *(enemiesKilled / 7);
+    distance = sign * gameLevel + sign *(enemiesKilled / 7);
 }
 
 
@@ -323,4 +323,13 @@ void Screen::setExplosion(int idx, sf::RenderWindow & window) {
     }
     newExplosion.explosionImage.setPosition(xPos, yPos);
     window.draw(newExplosion.explosionImage);
+}
+
+void Screen::levelUp() {
+    deleteGameObjects();
+    populateEnemies(20);
+    player.updatePos(600);
+    gameLevel++;
+    distance = gameLevel;
+    enemiesKilled = 0;
 }

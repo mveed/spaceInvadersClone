@@ -26,14 +26,16 @@ public:
     sf::Text scoreText;
     sf::Text levelText;
     sf::Font gameFont;
+    bool gameOver = false;
     
     float turningDistance = 0;
     float enemiesKilled = 0;
     float distance = 1;
     int shotCounter = 0;
     int gameLevel = 1;
+    int loops = 0;
     
-    const int windowWidth = 1200;
+    const int windowWidth = 1200 * 1.5;
     const int windowHeight = 1200;
     const int moveSpeed = 10;
     
@@ -54,8 +56,9 @@ public:
     int calculateScore();
     void updateDistance();
     void setExplosion(int idx, sf::RenderWindow & window);
+    void levelUp();
     
-    bool gameOver = false;
+    
     
 };
 
