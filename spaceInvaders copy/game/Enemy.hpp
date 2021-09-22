@@ -20,6 +20,7 @@ public:
     sf::RectangleShape enemyBox;
     float xPos;
     float yPos;
+    int alienType;
     bool isAlive;
     float movingDistance = 3;
     

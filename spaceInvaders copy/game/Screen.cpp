@@ -31,8 +31,10 @@ void Screen::populateEnemies( int numEnemy ) {
     float yStart = 150;
     enemies = {};
     for (int row = 0; row <= 4; row++){
+        int randNumber = rand() % 3 + 1;
         for (int col = 0; col <= 5; col++){
             Enemy newEnemy(xStart, yStart);
+            newEnemy.alienType = randNumber;
             // need to set the Rect bounding box to start position as well
             newEnemy.enemyBox.setPosition(xStart, yStart);
             xStart += xSpace;
@@ -70,8 +72,34 @@ void Screen::updateEnemies(sf::RenderWindow & window) {
     std::cout << enemies[0].xPos << std::endl;
     for (Enemy & enemy : enemies){
         if (enemy.isAlive){
+            // getting ready to load texture and filename
+            sf::Texture imageFile;
+            std::string fileName;
+            
+            // alienType is int set randomly for each row when enemy created
+            // used to set rows with same image for aliens
+            if (enemy.alienType == 1){
+                fileName = "alien1.png";
+            }
+            if (enemy.alienType == 2){
+                fileName = "alien2.png";
+            }
+            if (enemy.alienType == 3){
+                fileName = "alien3.png";
+            }
+            // test to make sure file opens
+            if(!imageFile.loadFromFile(fileName)){
+                std::cout << "Failed to load " << fileName;
+                exit(9);
+            }
+            
+            // set sprite as the image
+            sf::Sprite alienSprite(imageFile);
+            alienSprite.setScale(sf::Vector2f(5.f, 5.f));
+            alienSprite.setPosition(enemy.xPos, enemy.yPos);
+            // spriteTest.setColor(sf::Color(255, 0, 0));
+            window.draw(alienSprite);
             enemy.enemyImage.setPosition(enemy.updateXPos(distance), enemy.updateYPos(turningDistance));
-            window.draw(enemy.enemyImage);
         }
     }
 }
@@ -144,7 +172,28 @@ void Screen::updateExplosion(sf::RenderWindow & window) {
         explosions[i].update();
         if (explosions[i].isAlive){
             explosions[i].explosionImage.setPosition(explosions[i].getXPos(), explosions[i].getYPos());
-            window.draw(explosions[i].explosionImage);
+            
+            // setup texture and file name
+            sf::Texture imageFile;
+            std::string fileName = "explosion.png";
+            // load file, test that it opens
+            if(!imageFile.loadFromFile(fileName)){
+                std::cout << "Failed to load " << fileName;
+                exit(9);
+            }
+                
+            // set sprite and draw
+            sf::Sprite explosionSprite(imageFile);
+            explosionSprite.setPosition(explosions[i].xPos, explosions[i].yPos);
+            explosionSprite.setScale(sf::Vector2f(5.f, 5.f));
+            // spriteTest.setColor(sf::Color(255, 0, 0));
+            if (explosions[i].life > 3){
+                explosionSprite.setColor(sf::Color(255, 0, 0));
+            } else {
+                explosionSprite.setColor(sf::Color(255, 255, 255));
+            }
+            window.draw(explosionSprite);
+//            window.draw(explosions[i].explosionImage);
         }
     }
 }
@@ -169,8 +218,21 @@ void Screen::keyBoardPressed(sf::RenderWindow & window) {
         // higher values slow down rate of fire
         shotCounter = 30;
     }
-    player.playerImage.setPosition(player.getXPos(), player.yPos);
-    window.draw(player.playerImage);
+
+    // setup texture and file name
+    sf::Texture imageFile;
+    std::string fileName = "player.png";
+    // load file, test that it opens
+    if(!imageFile.loadFromFile(fileName)){
+        std::cout << "Failed to load " << fileName;
+        exit(9);
+    }
+        
+    // set sprite and draw
+    sf::Sprite playerSprite(imageFile);
+    playerSprite.setPosition(player.xPos, player.yPos);
+    // spriteTest.setColor(sf::Color(255, 0, 0));
+    window.draw(playerSprite);
 }
 
 void Screen::windowCheckAndClear(sf::RenderWindow & window){
