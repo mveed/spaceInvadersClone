@@ -332,6 +332,7 @@ void Screen::setExplosion(int idx, sf::RenderWindow & window) {
     window.draw(newExplosion.explosionImage);
 }
 
+
 void Screen::levelUp() {
     deleteGameObjects();
     populateEnemies(20);
