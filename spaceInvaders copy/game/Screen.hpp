@@ -27,7 +27,10 @@ public:
     sf::Text scoreText;
     sf::Text levelText;
     sf::Text gameOverText;
+    sf::Text welcomeText;
+    sf::Text instructionText;
     sf::Font gameFont;
+
     bool gameOver = false;
     
     float turningDistance = 0;
@@ -60,10 +63,8 @@ public:
     void updateDistance();
     void setExplosion(int idx, sf::RenderWindow & window);
     void levelUp();
-    
-    
-    
     void gameOverReset(std::string & gameState, sf::RenderWindow & window);
+    sf::Text createTextTitleScreen(sf::Text & text, int xPos, int yPos, int fontSize);
     
 };
 

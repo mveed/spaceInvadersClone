@@ -23,23 +23,14 @@ Screen::Screen() { // populate player, enemies
     std::string fontFile = "StickNoBills-ExtraLight.ttf";
     gameFont.loadFromFile(fontFile);
 
-    scoreText.setFont(gameFont);
-    scoreText.setCharacterSize(48); // in pixels, not points!
-    scoreText.setFillColor(sf::Color::Red); // set the text style
-    scoreText.setStyle(sf::Text::Bold);
-    scoreText.setPosition(50, 50);
     
-    levelText.setFont(gameFont);
-    levelText.setCharacterSize(48); // in pixels, not points!
-    levelText.setFillColor(sf::Color::Red); // set the text style
-    levelText.setStyle(sf::Text::Bold);
-    levelText.setPosition(windowWidth - 300, 50);
-    
-    gameOverText.setFont(gameFont);
-    gameOverText.setCharacterSize(92); // in pixels, not points!
-    gameOverText.setFillColor(sf::Color::Red); // set the text style
-    gameOverText.setStyle(sf::Text::Bold);
-    gameOverText.setPosition(windowWidth/2 - 190, windowHeight - 800);
+    scoreText = createTextTitleScreen(scoreText, 50, 50, 48);
+    levelText = createTextTitleScreen(levelText, windowWidth-300, 50, 48);
+    gameOverText = createTextTitleScreen(gameOverText, windowWidth/2 - 190, windowHeight - 800, 92);
+    welcomeText = createTextTitleScreen(welcomeText, windowWidth/4, windowHeight - 900, 150);
+    welcomeText.setString("Space Invaders");
+    instructionText = createTextTitleScreen(instructionText, windowWidth/4, windowHeight - 600, 100);
+    instructionText.setString("Press Space To Defend");
 }
 
 void Screen::populateEnemies( int numEnemy ) {
@@ -360,4 +351,13 @@ void Screen::gameOverReset(std::string & gameState, sf::RenderWindow & window){
     }
     gameOver = false;
     gameState = "title";
+}
+
+sf::Text Screen::createTextTitleScreen(sf::Text & text, int xPos, int yPos, int fontSize) {
+    text.setFont(gameFont);
+    text.setCharacterSize(fontSize); // in pixels, not points!
+    text.setFillColor(sf::Color::Red); // set the text style
+    text.setStyle(sf::Text::Bold);
+    text.setPosition(xPos, yPos);
+    return text;
 }

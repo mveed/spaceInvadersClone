@@ -86,7 +86,10 @@ int main()
                 gameState = "exit";
             }
             // ******* end of must be included in each state
-
+            
+            window.draw(screen.welcomeText);
+            window.draw(screen.instructionText);
+            
             
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
                 gameState = "setupNewGame";
