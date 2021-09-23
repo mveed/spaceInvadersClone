@@ -291,7 +291,8 @@ void Screen::updateGameStatistic(sf::RenderWindow & window) {
 }
 
 int Screen::calculateScore() {
-    return enemiesKilled + enemiesKilled * gameLevel;
+    
+    return previousScore + enemiesKilled + enemiesKilled * gameLevel;
 }
 
 
@@ -332,6 +333,7 @@ void Screen::setExplosion(int idx, sf::RenderWindow & window) {
 
 
 void Screen::levelUp() {
+    previousScore = calculateScore();
     deleteGameObjects();
     populateEnemies(20);
     player.updatePos(600);
@@ -346,6 +348,8 @@ void Screen::gameOverReset(std::string & gameState, sf::RenderWindow & window){
     distance = 1;
     player.xPos = 1200*1.5/2;
     player.yPos = 1100;
+    previousScore = 0;
+    gameLevel = 1;
     int gameOverCounter = 120;
     while (gameOverCounter > 0){
         window.clear(sf::Color::Black);
