@@ -6,9 +6,6 @@
 //
 #include "EnemyBullet.hpp"
 
-// uses random number to decide when to create a new bullet
-
-
 // bullet moves down screen, return value
 // to update setPosition
 float EnemyBullet::updateYPos(){

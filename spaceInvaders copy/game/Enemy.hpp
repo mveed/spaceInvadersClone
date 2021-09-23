@@ -23,15 +23,10 @@ public:
     int alienType;
     bool isAlive;
     float movingDistance = 3;
-    
     float getXPos();
     float getYPos();
     float updateXPos(float distance);
     float updateYPos(float distance);
-    bool stillAlive();
-    void kill();
-
-
 };
 
 #endif /* Enemy_hpp */

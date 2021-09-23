@@ -40,13 +40,6 @@ float Enemy::updateYPos(float distance){
     return yPos;
 }
 
-bool Enemy::stillAlive() {
-    
-    return true;
-}
 
-void Enemy::kill(){
-    
-}
 
 

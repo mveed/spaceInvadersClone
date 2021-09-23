@@ -39,7 +39,7 @@ public:
     int shotCounter = 30;
     int gameLevel = 1;
     int loops = 0;
-    int previousScore;
+    int previousScore = 0;
     
     const int windowWidth = 1200 * 1.5;
     const int windowHeight = 1200;

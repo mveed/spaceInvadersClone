@@ -20,7 +20,6 @@ public:
     Player();
     void updatePos(float pos);
     float getXPos();
-
 };
 
 #endif /* Player_hpp */
