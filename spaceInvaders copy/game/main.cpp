@@ -52,7 +52,7 @@ int main()
         // populates new game with necessary objects
         if (gameState == "setupNewGame"){
             screen.deleteGameObjects();
-            screen.populateEnemies(20);  // ***********************************
+            screen.populateEnemies();
             // once done setting up, change gameState to inGame, ready to play
             gameState = "inGame";
         }
