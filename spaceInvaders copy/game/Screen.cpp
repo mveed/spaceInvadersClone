@@ -8,22 +8,22 @@
 #include "Screen.hpp"
 
 
-Screen::Screen() { // populate player, enemies
-    populateEnemies(20);
-// create off screen playerBullet enemyBullet & explosion for the window to draw.
+Screen::Screen() {
+    // populate player, enemies
+    populateEnemies();
+    
+    // create off screen playerBullet enemyBullet & explosion for the window to draw.
     Bullet playerBulletOffScreen(player.getXPos() - 9999);
     playerBullets.push_back(playerBulletOffScreen);
-    
     EnemyBullet enemyBullet(-9999, -9999);
     enemyBullets.push_back(enemyBullet);
-    
     Explosion explosion(-9999, -9999);
     explosions.push_back(explosion);
     
     std::string fontFile = "StickNoBills-ExtraLight.ttf";
     gameFont.loadFromFile(fontFile);
 
-    
+    // intiate the statistic text and the welcome text needed for the game.
     scoreText = createTextTitleScreen(scoreText, 50, 50, 48);
     levelText = createTextTitleScreen(levelText, windowWidth-300, 50, 48);
     gameOverText = createTextTitleScreen(gameOverText, windowWidth/2 - 190, windowHeight - 800, 92);
@@ -33,7 +33,8 @@ Screen::Screen() { // populate player, enemies
     instructionText.setString("Press Space To Defend");
 }
 
-void Screen::populateEnemies( int numEnemy ) {
+void Screen::populateEnemies() {
+    // populate 20 enemy/invaders for the game and adds space between invaders;
     float xSpace = 150;
     float ySpace = 75;
     float xStart = 150;
@@ -55,7 +56,7 @@ void Screen::populateEnemies( int numEnemy ) {
 }
 
 void Screen::deleteGameObjects(){
-     // delete all enemies
+     // delete all enemies & bullets & enemyBullets before starting a new game.
     enemies = {};
     for (int i = 1; i < enemyBullets.size(); i++){
         enemyBullets.pop_back();
@@ -69,19 +70,18 @@ void Screen::deleteGameObjects(){
 }
 
 void Screen::updateEnemies(sf::RenderWindow & window) {
-
-//    bool hitBoarder = std::any_of(enemies.begin(), enemies.end(), [](Enemy en) -> bool { return en.getXPos() >=  1180 || en.getXPos() <= 10;});
-    bool hitBoarder = false;
+    // updates enemies positing on the screen;
+    // if any enemy in hits the boarder will flip the moving direction for the entire team and move to lower.
     for (Enemy & enemy : enemies) {
         turningDistance = 0;
-        if (enemy.getXPos() >= windowWidth - 50 || enemy.getXPos() <= 10) {
-            hitBoarder = true;
+        if ((enemy.getXPos() >= windowWidth - 50 || enemy.getXPos() <= 10) && enemy.isAlive) {
             distance = -distance;
             turningDistance = 20;
             break;;
         }
     }
     
+    // reder enemy image and update the enemy position.
     for (Enemy & enemy : enemies){
         if (enemy.isAlive){
             // getting ready to load texture and filename
@@ -120,6 +120,7 @@ void Screen::updateEnemies(sf::RenderWindow & window) {
 }
 
 void Screen::updateBullets(sf::RenderWindow & window) {
+    //checking the playerBullet collision and update the game statistics.
     for (int i = 0; i < playerBullets.size(); i++){
         if (playerBullets[i].isAlive){
             window.draw(playerBullets[i].bulletImage);
@@ -132,27 +133,32 @@ void Screen::updateBullets(sf::RenderWindow & window) {
             // get the bounding box for enemy
             sf::FloatRect enemyBox = enemies[j].enemyBox.getGlobalBounds();
             
+            // if player bullet and an enemy collide, updae the game statistics and set up explosion and make the bullet disapear.
             if (bulletBox.intersects(enemyBox) && enemies[j].isAlive && playerBullets[i].isAlive){
                 enemies[j].isAlive = false; // enemy killed
                 playerBullets[i].isAlive = false;
                 enemiesKilled += 1;
+                if (enemies.size() == enemiesKilled){
+                    levelUp();
+                }
                 updateDistance();
-
                 setExplosion(j, window);
             }
         }
-        if (enemies.size() == enemiesKilled){
-            levelUp();
-        }
+        
     }
 }
 
+
+// return a random number to generate the enemy bullet;
 bool Screen::randomizeEnemyBullets(){
     int x = rand() % 10000;
     return (x > 9985);
 }
 
+
 void Screen::updateEnemyBullets(sf::RenderWindow & window) {
+    // generate random enemy bullte and check if any enemy bullet collide with the player.
     for (int i = 0; i < enemies.size(); i++)
     if (randomizeEnemyBullets() && enemies[i].isAlive){
         EnemyBullet enemyBullet(enemies[i].getXPos() + 20, enemies[i].getYPos()+ 25);
@@ -172,50 +178,14 @@ void Screen::updateEnemyBullets(sf::RenderWindow & window) {
             if (playerBox.intersects(enemyBulletBox)){
                 enemyBullets[i].isAlive = false;
                 gameOver = true;
-                std::cout << "Player hit. \n";
             }
-                
-            // position and draw update
-
             window.draw(enemyBullets[i].enemyBulletImage);
         }
     }
 }
 
-void Screen::updateExplosion(sf::RenderWindow & window) {
-    for (int i = 0; i < explosions.size(); i++){
-        explosions[i].update();
-        if (explosions[i].isAlive){
-            explosions[i].explosionImage.setPosition(explosions[i].getXPos(), explosions[i].getYPos());
-            
-            // setup texture and file name
-            sf::Texture imageFile;
-            std::string fileName = "explosion.png";
-            // load file, test that it opens
-            if(!imageFile.loadFromFile(fileName)){
-                std::cout << "Failed to load " << fileName;
-                exit(9);
-            }
-                
-            // set sprite and draw
-            sf::Sprite explosionSprite(imageFile);
-            explosions[i].xPos += distance;
-//            explosionSprite.setPosition(explosions[i].xPos, explosions[i].yPos);
-            explosionSprite.setScale(sf::Vector2f(5.f, 5.f));
-            // spriteTest.setColor(sf::Color(255, 0, 0));
-            if (explosions[i].life > 3){
-                explosionSprite.setColor(sf::Color(255, 0, 0));
-            } else {
-                explosionSprite.setColor(sf::Color(255, 255, 255));
-            }
-            explosionSprite.setPosition(explosions[i].getXPos(), explosions[i].getYPos());
-            window.draw(explosionSprite);
-//            window.draw(explosions[i].explosionImage);
-        }
-    }
-}
-
 void Screen::keyBoardPressed(sf::RenderWindow & window) {
+    // check keyboard event and moving/render the object accordingly or fire a bullet.
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ){
         player.updatePos(player.getXPos() + moveSpeed);
         if (player.getXPos() > windowWidth - 65){
@@ -270,6 +240,7 @@ void Screen::windowCheckAndClear(sf::RenderWindow & window){
 }
 
 void Screen::updateGameStatistic(sf::RenderWindow & window) {
+    // update game statistic when enemy was killed or level up the game.
     std::string scoreString = "Your Score: " + std::to_string(calculateScore());
     std::string levelString = "Game Level: " + std::to_string(gameLevel);
     
@@ -282,20 +253,23 @@ void Screen::updateGameStatistic(sf::RenderWindow & window) {
 }
 
 int Screen::calculateScore() {
-    
+    // calculate the game score.
     return previousScore + enemiesKilled + enemiesKilled * gameLevel;
 }
 
 
 void Screen::updateDistance() {
+    // update the distance according to the game level and the number of enemies killed.
     int sign = distance < 0 ? -1 : 1;
     distance = sign * gameLevel + sign *(enemiesKilled / 7);
 }
 
 
-void Screen::setExplosion(int idx, sf::RenderWindow & window) {
-    int xPos = enemies[idx].getXPos();
-    int yPos = enemies[idx].getYPos();
+void Screen::setExplosion(int enemyIdx, sf::RenderWindow & window) {
+    // set up explosiong when the enemy was killed.
+    // using the killed enemy's x and y position to set up explosion effect on the screen.
+    int xPos = enemies[enemyIdx].getXPos();
+    int yPos = enemies[enemyIdx].getYPos();
     Explosion  newExplosion(xPos, yPos);
     newExplosion.update();
     if (newExplosion.isAlive){
@@ -308,7 +282,6 @@ void Screen::setExplosion(int idx, sf::RenderWindow & window) {
             exit(9);
         }
         sf::Sprite explosionSprite(imageFile);
-        
         explosionSprite.setScale(sf::Vector2f(5.f, 5.f));
         if (newExplosion.life > 3){
             explosionSprite.setColor(sf::Color(255, 0, 0));
@@ -324,9 +297,11 @@ void Screen::setExplosion(int idx, sf::RenderWindow & window) {
 
 
 void Screen::levelUp() {
+    // level up the game and update the game statistics and player position accordingly.
+    // reset or delete objects before starting a new game.
     previousScore = calculateScore();
     deleteGameObjects();
-    populateEnemies(20);
+    populateEnemies();
     player.updatePos(600);
     gameLevel++;
     distance = gameLevel;
@@ -334,6 +309,7 @@ void Screen::levelUp() {
 }
 
 void Screen::gameOverReset(std::string & gameState, sf::RenderWindow & window){
+    // reset the game statistics when the game is over.
     deleteGameObjects();
     enemiesKilled = 0;
     distance = 1;
@@ -358,6 +334,7 @@ void Screen::gameOverReset(std::string & gameState, sf::RenderWindow & window){
 }
 
 sf::Text Screen::createTextTitleScreen(sf::Text & text, int xPos, int yPos, int fontSize) {
+    // create the text for the game to render.
     text.setFont(gameFont);
     text.setCharacterSize(fontSize); // in pixels, not points!
     text.setFillColor(sf::Color::Red); // set the text style

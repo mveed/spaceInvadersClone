@@ -47,12 +47,11 @@ public:
     
     
     Screen();  // populate player, enemies
-    void populateEnemies( int numEnemies );
+    void populateEnemies();
     void deleteGameObjects();
     void updateEnemies(sf::RenderWindow & window);
     void updateBullets(sf::RenderWindow & window);
     void updateEnemyBullets(sf::RenderWindow & window);
-    void updateExplosion(sf::RenderWindow & window);
     bool randomizeEnemyBullets();
     void keyBoardPressed(sf::RenderWindow & window);
     
@@ -62,7 +61,7 @@ public:
     void updateGameStatistic(sf::RenderWindow & window);
     int calculateScore();
     void updateDistance();
-    void setExplosion(int idx, sf::RenderWindow & window);
+    void setExplosion(int enemyIdx, sf::RenderWindow & window);
     void levelUp();
     void gameOverReset(std::string & gameState, sf::RenderWindow & window);
     sf::Text createTextTitleScreen(sf::Text & text, int xPos, int yPos, int fontSize);
