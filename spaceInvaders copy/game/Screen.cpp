@@ -343,3 +343,11 @@ sf::Text Screen::createTextTitleScreen(sf::Text & text, int xPos, int yPos, int 
     text.setPosition(xPos, yPos);
     return text;
 }
+
+// test to verify
+void Screen::addDeleteObjectsTest(int vectorSize, int expectedValue, std::string errorMsg){
+    if (vectorSize != expectedValue){
+        std::cerr << errorMsg << " should equal " << expectedValue << ", instead returned " << vectorSize << "\n";
+        exit(1);
+    }
+}

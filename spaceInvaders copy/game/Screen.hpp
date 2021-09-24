@@ -68,6 +68,9 @@ public:
     void gameOverReset(std::string & gameState, sf::RenderWindow & window);
     sf::Text createTextTitleScreen(sf::Text & text, int xPos, int yPos, int fontSize);
     
+    // test to v
+    void addDeleteObjectsTest(int vectorSize, int expectedValue, std::string errorMsg);
+    
 };
 
 

@@ -52,8 +52,12 @@ int main()
         // populates new game with necessary objects
         if (gameState == "setupNewGame"){
             screen.deleteGameObjects();
+            // test that enemies have been deleted
+            screen.addDeleteObjectsTest(screen.enemies.size(), 0, "Current enemies vector");
             // now populate new objects for level
             screen.populateEnemies();
+            // test that 30 enemies have been created
+            screen.addDeleteObjectsTest(screen.enemies.size(), 30, "Current enemies vector");
             // once done setting up, change gameState to inGame, ready to play
             gameState = "inGame";
         }
