@@ -10,11 +10,13 @@
 
 #include <stdio.h>
 #include <iostream>
+
 #include "Enemy.hpp"
 #include "Bullet.hpp"
 #include "EnemyBullet.hpp"
 #include "Player.hpp"
 #include "Explosion.hpp"
+#include "Tests.hpp"
 
 class Screen {
 public:

@@ -13,6 +13,7 @@
 		075D02A726F90B09007BA98D /* Bullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075D02A526F90B09007BA98D /* Bullet.cpp */; };
 		078A5AAF26FA538F005D5FC2 /* EnemyBullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 078A5AAD26FA538F005D5FC2 /* EnemyBullet.cpp */; };
 		078A5AB226FA602A005D5FC2 /* Explosion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 078A5AB026FA602A005D5FC2 /* Explosion.cpp */; };
+		0790FCC526FD51EA0027E01B /* Tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0790FCC326FD51EA0027E01B /* Tests.cpp */; };
 		1864D07026FA81F200EFF352 /* Screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1864D06E26FA81F200EFF352 /* Screen.cpp */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,8 @@
 		078A5AAE26FA538F005D5FC2 /* EnemyBullet.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EnemyBullet.hpp; sourceTree = "<group>"; };
 		078A5AB026FA602A005D5FC2 /* Explosion.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Explosion.cpp; sourceTree = "<group>"; };
 		078A5AB126FA602A005D5FC2 /* Explosion.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Explosion.hpp; sourceTree = "<group>"; };
+		0790FCC326FD51EA0027E01B /* Tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tests.cpp; sourceTree = "<group>"; };
+		0790FCC426FD51EA0027E01B /* Tests.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tests.hpp; sourceTree = "<group>"; };
 		07C0813326FBBA23001E6674 /* alien2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alien2.png; sourceTree = "<group>"; };
 		07C0813426FBBA23001E6674 /* alien1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alien1.png; sourceTree = "<group>"; };
 		07C0813526FBBA23001E6674 /* player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player.png; sourceTree = "<group>"; };
@@ -95,6 +98,8 @@
 				078A5AAE26FA538F005D5FC2 /* EnemyBullet.hpp */,
 				078A5AB026FA602A005D5FC2 /* Explosion.cpp */,
 				078A5AB126FA602A005D5FC2 /* Explosion.hpp */,
+				0790FCC326FD51EA0027E01B /* Tests.cpp */,
+				0790FCC426FD51EA0027E01B /* Tests.hpp */,
 			);
 			path = game;
 			sourceTree = "<group>";
@@ -173,6 +178,7 @@
 				078A5AAF26FA538F005D5FC2 /* EnemyBullet.cpp in Sources */,
 				1864D07026FA81F200EFF352 /* Screen.cpp in Sources */,
 				078A5AB226FA602A005D5FC2 /* Explosion.cpp in Sources */,
+				0790FCC526FD51EA0027E01B /* Tests.cpp in Sources */,
 				075D029626F8E4C1007BA98D /* main.cpp in Sources */,
 				075D02A126F90AF4007BA98D /* Player.cpp in Sources */,
 			);

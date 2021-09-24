@@ -91,13 +91,13 @@ void Screen::updateEnemies(sf::RenderWindow & window) {
             // alienType is int set randomly for each row when enemy created
             // used to set rows with same image for aliens
             if (enemy.alienType == 1){
-                fileName = "alien1.png";
+                fileName = "alien5.png";
             }
             if (enemy.alienType == 2){
                 fileName = "alien2.png";
             }
             if (enemy.alienType == 3){
-                fileName = "alien3.png";
+                fileName = "alien4.png";
             }
             // test to make sure file opens
             if(!imageFile.loadFromFile(fileName)){
@@ -109,6 +109,7 @@ void Screen::updateEnemies(sf::RenderWindow & window) {
             sf::Sprite alienSprite(imageFile);
             alienSprite.setScale(sf::Vector2f(5.f, 5.f));
             alienSprite.setPosition(enemy.xPos, enemy.yPos);
+
             // spriteTest.setColor(sf::Color(255, 0, 0));
             window.draw(alienSprite);
             enemy.enemyImage.setPosition(enemy.updateXPos(distance), enemy.updateYPos(turningDistance));
