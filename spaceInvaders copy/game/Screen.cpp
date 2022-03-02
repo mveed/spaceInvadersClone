@@ -204,7 +204,7 @@ void Screen::keyBoardPressed(sf::RenderWindow & window) {
         Bullet bullet(player.getXPos() + 30);
         playerBullets.push_back(bullet);
         // higher values slow down rate of fire
-        shotCounter = 30;
+        shotCounter = 15;
     }
 
     // setup texture and file name
