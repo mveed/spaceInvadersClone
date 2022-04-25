@@ -29,6 +29,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		075B259C2720A869006C5EA4 /* alien4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alien4.png; sourceTree = "<group>"; };
+		075B259D2720A869006C5EA4 /* alien5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alien5.png; sourceTree = "<group>"; };
+		075B259E2720A878006C5EA4 /* StickNoBills-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "StickNoBills-ExtraLight.ttf"; sourceTree = "<group>"; };
 		075D029226F8E4C1007BA98D /* game */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = game; sourceTree = BUILT_PRODUCTS_DIR; };
 		075D029526F8E4C1007BA98D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		075D029F26F90AF4007BA98D /* Player.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
@@ -108,6 +111,9 @@
 				07C0813726FBBA23001E6674 /* explosion.png */,
 				07C0813526FBBA23001E6674 /* player.png */,
 				1864D06D26FA73F000EFF352 /* GrechenFuemen-Regular.ttf */,
+				075B259C2720A869006C5EA4 /* alien4.png */,
+				075B259D2720A869006C5EA4 /* alien5.png */,
+				075B259E2720A878006C5EA4 /* StickNoBills-ExtraLight.ttf */,
 			);
 			path = documents;
 			sourceTree = "<group>";

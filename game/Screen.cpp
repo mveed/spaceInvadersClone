@@ -7,6 +7,7 @@
 
 #include "Screen.hpp"
 
+const std::string resourceDir_ = "../documents/";
 
 Screen::Screen() {
     // populate player, enemies
@@ -19,8 +20,9 @@ Screen::Screen() {
     enemyBullets.push_back(enemyBullet);
     Explosion explosion(-9999, -9999);
     explosions.push_back(explosion);
-    
-    std::string fontFile = "StickNoBills-ExtraLight.ttf";
+
+
+    std::string fontFile = resourceDir_ + "StickNoBills-ExtraLight.ttf";
     gameFont.loadFromFile(fontFile);
 
     // intiate the statistic text and the welcome text needed for the game.
@@ -87,17 +89,18 @@ void Screen::updateEnemies(sf::RenderWindow & window) {
             // getting ready to load texture and filename
             sf::Texture imageFile;
             std::string fileName;
-            
+
+            //std::string fontFile = resourceDir_ + "StickNoBills-ExtraLight.ttf";
             // alienType is int set randomly for each row when enemy created
             // used to set rows with same image for aliens
             if (enemy.alienType == 1){
-                fileName = "alien5.png";
+                fileName = resourceDir_ + "alien5.png";
             }
             if (enemy.alienType == 2){
-                fileName = "alien2.png";
+                fileName = resourceDir_ + "alien2.png";
             }
             if (enemy.alienType == 3){
-                fileName = "alien4.png";
+                fileName = resourceDir_ + "alien4.png";
             }
             // test to make sure file opens
             if(!imageFile.loadFromFile(fileName)){
@@ -204,12 +207,12 @@ void Screen::keyBoardPressed(sf::RenderWindow & window) {
         Bullet bullet(player.getXPos() + 30);
         playerBullets.push_back(bullet);
         // higher values slow down rate of fire
-        shotCounter = 15;
+        shotCounter = 30;
     }
 
     // setup texture and file name
     sf::Texture imageFile;
-    std::string fileName = "player.png";
+    std::string fileName = resourceDir_ + "player.png";
     // load file, test that it opens
     if(!imageFile.loadFromFile(fileName)){
         std::cout << "Failed to load " << fileName;
@@ -276,7 +279,7 @@ void Screen::setExplosion(int enemyIdx, sf::RenderWindow & window) {
     if (newExplosion.isAlive){
         // setup texture and file name
         sf::Texture imageFile;
-        std::string fileName = "explosion.png";
+        std::string fileName = resourceDir_ + "explosion.png";
         // load file, test that it opens
         if(!imageFile.loadFromFile(fileName)){
             std::cout << "Failed to load " << fileName;
